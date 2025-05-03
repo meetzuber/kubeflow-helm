@@ -1,0 +1,31 @@
+kubeflow:
+  gateway:
+    selector:
+      istio: ingressgateway
+    servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+      - "*"
+
+knativeServing:
+  enabled: true
+  config:
+    istio:
+      local-gateways: |
+        - name: knative-local-gateway
+          namespace: knative-serving
+          service: knative-local-gateway.istio-system.svc.cluster.local
+      #external-gateways: |
+      #  - name: knative-ingress-gateway
+      #    namespace: knative-serving
+      #    service: istio-ingressgateway.istio-system.svc.cluster.local
+    #domain:
+    #  example.org: |
+    #    selector:
+    #      app: prod
+    #  example.com: ""
+    #autoscaler:
+    #  stable-window: "60s"
